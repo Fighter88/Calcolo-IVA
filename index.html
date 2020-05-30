@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title class="font-weight-bold">Calcolo dell'iva</title>
+</head>
+
+<body class="mb-5 ml-5 mr-5 mt-1 bg-dark text-light">
+    <main role="main">
+        <article class="container">
+            <h1 class="display-4 font-weight-bold">Calcolo dell'iva</h1>
+            <label for="ragionamento" class="font-weight-bold">
+                Il ragionamento da fare è il seguente:
+            </label>
+            <ol id="ragionamento" class="font-italic">
+                <li>
+                    L'IVA da versare allo Stato è la differenza tra IVA a debito e IVA a credito
+                </li>
+                <li>
+                    L'IVA a debito è quella riscossa sulle vendite che il dettagliante deve scorporare dall'importo
+                    delle vendite
+                </li>
+                <li>
+                    L'IVA a credito è quella pagata sugli acquisti che si calcola applicando l'aliquota all'importo
+                    degli acquisti
+                </li>
+            </ol>
+            <form id="calc" class="mb-5 ml-5 mr-5 mt-4">
+                <session class="form-group p-b-3">
+                    <session class="form-row d-flex justify-content-between">
+                        <label for="acquisti" class="">
+                            Valore acquisti
+                        </label>
+                        <input type="text" class="text-center fixed-width" name="acquisti" id="totAcq" placeholder="100"
+                            value="100">
+                    </session>
+                    <session class="form-row d-flex justify-content-between">
+                        <label for="vendite">
+                            Valore vendite
+                        </label>
+                        <input type="text" class="text-center fixed-width" name="vendite" id="totVend" placeholder="100"
+                            value="100">
+                    </session>
+                </session>
+                <session class="form-group p-b-3">
+                    <session class="form-row d-flex justify-content-between">
+                        <label for="venditeIvaEsc">
+                            Percentuale vendite iva esclusa
+                        </label>
+                        <input readonly type="text" class="text-center fixed-width" name="ivaEsc" id="ivaEsc"
+                            placeholder="100" value="100">
+                    </session>
+                    <session class="form-row d-flex justify-content-between">
+                        <label for="iva">
+                            Iva
+                        </label>
+                        <input type="text" class="text-center fixed-width" name="iva" id="iva" placeholder="22"
+                            value="20">
+                    </session>
+                    <session class="form-row d-flex justify-content-between">
+                        <label for="venditeIvaInc">
+                            Percentuale vendite iva inclusa
+                        </label>
+                        <input readonly type="text" class="text-center fixed-width" name="ivaInc" id="ivaInc"
+                            placeholder="122" value="120">
+                    </session>
+                </session>
+                <session class="form-group p-b-3">
+                    <session class="form-row">
+                        <label for="">
+                            IVA a debito = totale vendite IVA inclusa * IVA sulle vendite / percendtuale vendite IVA
+                            inclusa
+                        </label>
+                    </session>
+                    <session class="form-row">
+                        <input readonly type="text" name="IADcalc" class="IAD text-center fixed-width" value="X">
+                        &nbsp;=&nbsp;
+                        <input readonly type="text" name="totRicVend" class="totVend text-center fixed-width">
+                        &nbsp;*&nbsp;
+                        <input readonly type="text" name="aliquotaIvaVend" class="iva text-center fixed-width">
+                        &nbsp;/&nbsp;
+                        <input readonly type="text" name="venditeIvaInc" class="ivaInc text-center fixed-width">
+                    </session>
+                </session>
+                <session class="form-group p-b-3">
+                    <session class="form-row">
+                        <label for="">
+                            IVA a Credito = totale acquisti IVA esclusa * IVA sulle vendite / percendtuale vendite IVA
+                            esclusa
+                        </label>
+                    </session>
+                    <session class="form-row">
+                        <input readonly type="text" name="acqIE" class="IAC text-center fixed-width" value="X">
+                        &nbsp;=&nbsp;
+                        <input readonly type="text" name="totAcquistiIvaEsc" class="totAcq text-center fixed-width">
+                        &nbsp;*&nbsp;
+                        <input readonly type="text" name="aliquotaIvaAcq" class="iva text-center fixed-width">
+                        &nbsp;/&nbsp;
+                        <input readonly type="text" name="acquistiIvaEsc" class="ivaEsc text-center fixed-width">
+                    </session>
+                </session>
+                <session class="form-group p-b-3">
+                    <session class="form-row">
+                        <label for="">
+                            Calcolo dell'IVA da versare allo Stato:
+                        </label>
+                    </session>
+                </session>
+                <session class="form-group p-b-3">
+                    <session class="form-row">
+                        <label for="">
+                            IVA a debito - IVA a credito = IVA da versare
+                        </label>
+                    </session>
+                    <session class="form-row">
+                        <input readonly type="text" id="iAD" name="ivaADebito" class="text-center fixed-width">
+                        &nbsp;-&nbsp;
+                        <input readonly type="text" id="iAC" name="ivaACredito" class="text-center fixed-width">
+                        &nbsp;=&nbsp;
+                        <input readonly type="text" id="iDV" name="ivaDaVersare" class="text-center fixed-width">
+                    </session>
+                </session>
+            </form>
+        </article>
+    </main>
+    <footer>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+            </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+            </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+            </script>
+        <script src="script.js"></script>
+    </footer>
+
+</body>
+
+</html>
