@@ -35,8 +35,8 @@ if (document.readyState === 'loading') {
         let val_iva = parseFloat(iva.value);
         let val_ivaInc = parseFloat(ivaInc.value);
         
-        let val_iAD = val_totVend*val_iva/val_ivaInc;
-        let val_iAC = val_totAcq/val_ivaEsc*val_iva;
+        let val_iAD = val_totVend * val_iva / val_ivaInc;
+        let val_iAC = val_totAcq / val_ivaEsc * val_iva;
         let val_iDV = val_iAD - val_iAC;
 
         iAC.value=val_iAC;
