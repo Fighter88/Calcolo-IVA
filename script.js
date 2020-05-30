@@ -31,13 +31,13 @@ if (document.readyState === 'loading') {
         let val_totAcq = parseFloat(totAcq.value);
         let val_totVend = parseFloat(totVend.value);
 
-        let val_ivaEsc = parseFloat(ivaEsc.value);
-        let val_iva = parseFloat(iva.value);
-        let val_ivaInc = parseFloat(ivaInc.value);
+        let val_ivaEsc = parseInt(ivaEsc.value);
+        let val_iva = parseInt(iva.value);
+        let val_ivaInc = parseInt(ivaInc.value);
         
-        let val_iAD = val_totVend * val_iva / val_ivaInc;
-        let val_iAC = val_totAcq / val_ivaEsc * val_iva;
-        let val_iDV = val_iAD - val_iAC;
+        let val_iAD = Math.round(val_totVend * val_iva / val_ivaInc * val_ivaEsc)/ val_ivaEsc;
+        let val_iAC = Math.round(val_totAcq / val_ivaEsc * val_iva * val_ivaEsc)/ val_ivaEsc;
+        let val_iDV= Math.round((val_iAD - val_iAC) * val_ivaEsc)/ val_ivaEsc; 
 
         iAC.value=val_iAC;
         iAD.value=val_iAD;
@@ -58,5 +58,5 @@ if (document.readyState === 'loading') {
         [].forEach.call(ivas,ele=>ele.value=val_iva);
         [].forEach.call(ivaIncs,ele=>ele.value=val_ivaInc);
     };
-
+}
 }
