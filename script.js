@@ -25,9 +25,14 @@ if (document.readyState === 'loading') {
     
     const inputs = document.getElementsByTagName('input');
 
-    [].forEach.call(inputs,input => input.addEventListener("change",e=>calcIvaDovuta()));
+    [].forEach.call(inputs,input => input.addEventListener("change",()=>calcIvaDovuta()));
 
+    /**
+     *  calcIvaDovuta() function
+     *  is a input value change event listener function
+     */
     function calcIvaDovuta(){
+        //  read values from form's input
         let val_totAcq = parseFloat(totAcq.value);
         let val_totVend = parseFloat(totVend.value);
 
@@ -35,28 +40,46 @@ if (document.readyState === 'loading') {
         let val_iva = parseInt(iva.value);
         let val_ivaInc = parseInt(ivaInc.value);
         
-        let val_iAD = Math.round(val_totVend * val_iva / val_ivaInc * val_ivaEsc)/ val_ivaEsc;
-        let val_iAC = Math.round(val_totAcq / val_ivaEsc * val_iva * val_ivaEsc)/ val_ivaEsc;
-        let val_iDV= Math.round((val_iAD - val_iAC) * val_ivaEsc)/ val_ivaEsc; 
+        //  VAT due
+        let val_iAD = val_totVend * val_iva / val_ivaInc;
+        //  VAT on credit
+        let val_iAC = val_totAcq / val_ivaEsc * val_iva;
 
-        iAC.value=val_iAC;
-        iAD.value=val_iAD;
-        iDV.value=val_iDV;
+        //  round the results
+        val_iAD = doublePrecisionRound(val_iAD);
+        val_iAC = doublePrecisionRound(val_iAC);
 
-        ivaEsc.value=val_ivaEsc;
-        iva.value=val_iva;
-        ivaInc.value=val_ivaEsc+val_iva;
+        //  VAT to be paid
+        let val_iDV = val_iAD - val_iAC;
+        
+        iAC.value = val_iAC;
+        iAD.value = val_iAD;
+        iDV.value = val_iDV;
 
-        [].forEach.call(totAcqs,ele=>ele.value=val_totAcq);
-        [].forEach.call(totVends,ele=>ele.value=val_totVend);
+        ivaEsc.value = val_ivaEsc;
+        iva.value = val_iva;
+        ivaInc.value = val_ivaEsc + val_iva;
 
-        [].forEach.call(iACs,ele=>ele.value=val_iAC);
-        [].forEach.call(iADs,ele=>ele.value=val_iAD);
-        [].forEach.call(iDVs,ele=>ele.value=val_iDV);
+        [].forEach.call(totAcqs,ele => ele.value = val_totAcq);
+        [].forEach.call(totVends,ele => ele.value = val_totVend);
 
-        [].forEach.call(ivaEscs,ele=>ele.value=val_ivaEsc);
-        [].forEach.call(ivas,ele=>ele.value=val_iva);
-        [].forEach.call(ivaIncs,ele=>ele.value=val_ivaInc);
+        [].forEach.call(iACs,ele => ele.value = val_iAC);
+        [].forEach.call(iADs,ele => ele.value = val_iAD);
+        [].forEach.call(iDVs,ele => ele.value = val_iDV);
+
+        [].forEach.call(ivaEscs,ele => ele.value = val_ivaEsc);
+        [].forEach.call(ivas,ele => ele.value = val_iva);
+        [].forEach.call(ivaIncs,ele => ele.value = val_ivaInc);
     };
-}
+    
+    /**
+     * doublePrecisionRounding function
+     *
+     * @param val is a float
+     * @returns is a float double precision rounded
+     */
+    function doublePrecisionRound(val){
+        const molt=100; 
+        return Math.round(val * molt) / molt;
+    } 
 }
